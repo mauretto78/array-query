@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "cd968a38c3d186c29101679d36cfbdd0",
+    "content-hash": "9fe6a4554d72bf66f08254122302a95c",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1167,7 +1167,7 @@
                 "github",
                 "test"
             ],
-            "time": "2017-08-07 09:29:08"
+            "time": "2017-08-07T09:29:08+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
