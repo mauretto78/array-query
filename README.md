@@ -2,6 +2,7 @@
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/b2f343d6-2459-4b6f-b2c9-c33a05a482d1/mini.png)](https://insight.sensiolabs.com/projects/b2f343d6-2459-4b6f-b2c9-c33a05a482d1)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a17231a0420548e182ec58516cd1b562)](https://www.codacy.com/app/mauretto78/array-query?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mauretto78/array-query&amp;utm_campaign=Badge_Grade)
+[![Coverage Status](https://coveralls.io/repos/github/mauretto78/array-query/badge.svg?branch=master)](https://coveralls.io/github/mauretto78/array-query?branch=master)
 [![license](https://img.shields.io/github/license/mauretto78/array-query.svg)]()
 [![Packagist](https://img.shields.io/packagist/v/mauretto78/array-query.svg)]()
 
