@@ -10,7 +10,7 @@
 
 namespace ArrayQuery\Filters\Criterion;
 
-class ArrayInversedFilter implements FilterInterface
+class InArrayInversedFilter implements FilterInterface
 {
     /**
      * @param $value

@@ -24,8 +24,9 @@ class CriterionFilter extends AbstractFilter
         '<' => 'LessThanFilter',
         '<=' => 'LessThanEqualsFilter',
         '!=' => 'NotEqualsFilter',
-        'ARRAY' => 'ArrayFilter',
-        'ARRAY_INVERSED' => 'ArrayInversedFilter',
+        'IN_ARRAY' => 'InArrayFilter',
+        'IN_ARRAY_INVERSED' => 'InArrayInversedFilter',
+        'ARRAY_MATCH' => 'ArrayMatchFilter',
         'CONTAINS' => 'ContainsFilter',
     ];
 

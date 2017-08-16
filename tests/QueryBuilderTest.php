@@ -251,7 +251,7 @@ class QueryBuilderTest extends TestCase
     {
         foreach ($this->usersArrays as $array) {
             $qb = QueryBuilder::create($array)
-                ->addCriterion('name', ['Leanne Graham', 'Ervin Howell', 'Clementine Bauch'], 'ARRAY');
+                ->addCriterion('name', ['Leanne Graham', 'Ervin Howell', 'Clementine Bauch'], 'IN_ARRAY');
 
             $this->assertCount(3, $qb->getResults());
         }
@@ -260,17 +260,34 @@ class QueryBuilderTest extends TestCase
     /**
      * @test
      */
-    public function it_should_get_results_from_a_array_inversed_query()
+    public function it_should_get_results_from_a_IN_ARRAY_INVERSED_query()
     {
         foreach ($this->usersArrays as $array) {
             $qb = QueryBuilder::create($array)
-                ->addCriterion('tags', 'pinapple', 'ARRAY_INVERSED')
+                ->addCriterion('tags', 'pinapple', 'IN_ARRAY_INVERSED')
                 ->sortedBy('name', 'ASC');
 
             $results = $qb->getResults();
 
             $this->assertCount(9, $results);
             $this->assertEquals('Chelsey Dietrich', $results[0]['name']);
+        }
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_get_results_from_a_array_match_query()
+    {
+        foreach ($this->usersArrays as $array) {
+            $qb = QueryBuilder::create($array)
+                ->addCriterion('tags', ['pear-pie', 'apple-pie'], 'ARRAY_MATCH')
+                ->sortedBy('name', 'ASC');
+
+            $results = $qb->getResults();
+
+            $this->assertCount(6, $results);
+            $this->assertEquals('Clementina DuBuque', $results[0]['name']);
         }
     }
 
@@ -296,11 +313,11 @@ class QueryBuilderTest extends TestCase
     /**
      * @test
      */
-    public function it_should_get_results_from_a_array_inversed_query_with_sorting_and_limits()
+    public function it_should_get_results_from_a_IN_ARRAY_INVERSED_query_with_sorting_and_limits()
     {
         foreach ($this->usersArrays as $array) {
             $qb = QueryBuilder::create($array)
-                ->addCriterion('tags', 'pinapple', 'ARRAY_INVERSED')
+                ->addCriterion('tags', 'pinapple', 'IN_ARRAY_INVERSED')
                 ->sortedBy('id', 'DESC')
                 ->limit(0, 3);
 

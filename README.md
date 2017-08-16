@@ -96,8 +96,9 @@ foreach ($qb->getResults() as $element){
 * `<=`
 * `>=`
 * `!=`
-* `ARRAY`
-* `ARRAY_INVERSED`
+* `IN_ARRAY`
+* `IN_ARRAY_INVERSED`
+* `ARRAY_MATCH`
 * `CONTAINS` (case insensitive)
 
 ### Avaliable sorting operators

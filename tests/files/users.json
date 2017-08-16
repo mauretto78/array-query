@@ -23,7 +23,8 @@
     },
     "tags": [
       "apple",
-      "pear"
+      "pear",
+      "apple-pie"
     ]
   },
   {
@@ -51,7 +52,9 @@
     "tags": [
       "apple",
       "pinapple",
-      "pear"
+      "pear",
+      "apple-pie",
+      "pear-pie"
     ]
   },
   {
@@ -79,7 +82,8 @@
     "tags": [
       "apple",
       "pinapple",
-      "pear"
+      "pear",
+      "apple-pie"
     ]
   },
   {
@@ -107,7 +111,8 @@
     "tags": [
       "apple",
       "pinapple",
-      "pear"
+      "pear",
+      "apple-pie"
     ]
   },
   {
@@ -247,7 +252,8 @@
     "tags": [
       "apple",
       "pinapple",
-      "pear"
+      "pear",
+      "pear-pie"
     ]
   },
   {
@@ -275,7 +281,8 @@
     "tags": [
       "apple",
       "pinapple",
-      "pear"
+      "pear",
+      "pear-pie"
     ]
   }
 ]
