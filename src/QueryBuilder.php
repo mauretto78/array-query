@@ -42,6 +42,10 @@ class QueryBuilder
      */
     private $array;
 
+    /**
+     * QueryBuilder constructor.
+     * @param array $array
+     */
     public function __construct(array $array)
     {
         $this->setArray($array);
