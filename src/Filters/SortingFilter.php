@@ -1,0 +1,53 @@
+<?php
+
+namespace ArrayQuery\Filters;
+
+class SortingFilter extends AbstractFilter
+{
+    /**
+     * @var array
+     */
+    public static $operatorsMap = [
+        'ASC',
+        'DESC',
+    ];
+
+    /**
+     * @param array $results
+     * @param null $sortingArray
+     * @return array
+     */
+    public static function filter(array $results, $sortingArray = null)
+    {
+        if (is_array($sortingArray) && count($sortingArray)) {
+            return self::sort($results, $sortingArray);
+        }
+
+        return $results;
+    }
+
+    /**
+     * @param $results
+     * @param $sortingArray
+     * @return array
+     */
+    private static function sort($results, $sortingArray)
+    {
+        usort($results, function ($first, $second) use ($sortingArray) {
+            $valueA = self::getArrayElementValueFromKey($sortingArray['key'], $first);
+            $valueB = self::getArrayElementValueFromKey($sortingArray['key'], $second);
+
+            if ($valueA === $valueB) {
+                return 0;
+            }
+
+            return ($valueA < $valueB) ? -1 : 1;
+        });
+
+        if ($sortingArray['order'] === 'DESC') {
+            return array_reverse($results);
+        }
+
+        return $results;
+    }
+}
