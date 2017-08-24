@@ -25,8 +25,27 @@ abstract class AbstractFilter
     {
         return self::getValueFromKeysArray(
             explode(self::ARRAY_SEPARATOR, $key),
-            (array) $arrayElement
+            (is_object($arrayElement)) ? self::convertObjectToArray($arrayElement) : $arrayElement
         );
+    }
+
+    /**
+     * @param $arrayElement
+     * @return array
+     */
+    private static function convertObjectToArray($arrayElement)
+    {
+        $convertedArray = [];
+
+        foreach ((array)$arrayElement as $key => $element){
+            $key = explode("\\", $key);
+            $key = end($key);
+            $key = explode("\000", $key);
+
+            $convertedArray[end($key)] = $element;
+        }
+
+        return $convertedArray;
     }
 
     /**
