@@ -10,7 +10,7 @@
 
 namespace ArrayQuery\Filters\Criterion;
 
-class NotEqualsFilter implements FilterInterface
+class EqualsDateFilter implements FilterInterface
 {
     /**
      * @param $value
@@ -19,6 +19,9 @@ class NotEqualsFilter implements FilterInterface
      */
     public function match($value, $valueToCompare, $dateFormat = null)
     {
-        return $value !== $valueToCompare;
+        $valueDate = \DateTimeImmutable::createFromFormat(($dateFormat) ?: 'Y-m-d', $value);
+        $valueToComapareDate = \DateTimeImmutable::createFromFormat(($dateFormat) ?: 'Y-m-d', $valueToCompare);
+
+        return $valueDate == $valueToComapareDate;
     }
 }

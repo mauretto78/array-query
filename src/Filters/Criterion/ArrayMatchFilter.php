@@ -17,7 +17,7 @@ class ArrayMatchFilter implements FilterInterface
      * @param $valueToCompare
      * @return bool
      */
-    public function match($value, $valueToCompare)
+    public function match($value, $valueToCompare, $dateFormat = null)
     {
         return count(array_intersect($value, $valueToCompare)) ? true : false;
     }

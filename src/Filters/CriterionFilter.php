@@ -24,6 +24,11 @@ class CriterionFilter extends AbstractFilter
         '<' => 'LessThanFilter',
         '<=' => 'LessThanEqualsFilter',
         '!=' => 'NotEqualsFilter',
+        'GT_DATE' => 'GreaterThanDateFilter',
+        'GTE_DATE' => 'GreaterThanEqualsDateFilter',
+        'LT_DATE' => 'LessThanDateFilter',
+        'LTE_DATE' => 'LessThanEqualsDateFilter',
+        'EQUALS_DATE' => 'EqualsDateFilter',
         'IN_ARRAY' => 'InArrayFilter',
         'IN_ARRAY_INVERSED' => 'InArrayInversedFilter',
         'ARRAY_MATCH' => 'ArrayMatchFilter',
@@ -44,6 +49,6 @@ class CriterionFilter extends AbstractFilter
         /** @var FilterInterface $filter */
         $filter = new $filterClass();
 
-        return $filter->match($value, $valueToCompare);
+        return $filter->match($value, $valueToCompare, $criterion['date_format']);
     }
 }

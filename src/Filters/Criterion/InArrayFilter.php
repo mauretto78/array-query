@@ -17,7 +17,7 @@ class InArrayFilter implements FilterInterface
      * @param $valueToCompare
      * @return bool
      */
-    public function match($value, $valueToCompare)
+    public function match($value, $valueToCompare, $dateFormat = null)
     {
         return in_array($value, (array) $valueToCompare);
     }

@@ -17,5 +17,5 @@ interface FilterInterface
      * @param $valueToCompare
      * @return mixed
      */
-    public function match($value, $valueToCompare);
+    public function match($value, $valueToCompare, $dateFormat = null);
 }

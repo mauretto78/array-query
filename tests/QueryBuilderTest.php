@@ -345,4 +345,94 @@ class QueryBuilderTest extends TestCase
             $this->assertEquals('Glenna Reichert', $results[0]['name']);
         }
     }
+
+    /**
+     * @test
+     */
+    public function it_should_get_results_from_a_query_with_gt_date()
+    {
+        foreach ($this->usersArrays as $array) {
+            $qb = QueryBuilder::create($array)
+                ->addCriterion('registration_date', '01/05/2017', 'GT_DATE', 'd/m/Y')
+                ->sortedBy('id', 'DESC');
+
+            $results = $qb->getResults();
+
+            $this->assertEquals(6, $qb->getCount());
+            $this->assertEquals(7, $results[0]['id']);
+            $this->assertEquals('Kurtis Weissnat', $results[0]['name']);
+        }
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_get_results_from_a_query_with_gte_date()
+    {
+        foreach ($this->usersArrays as $array) {
+            $qb = QueryBuilder::create($array)
+                ->addCriterion('registration_date', '01/05/2017', 'GTE_DATE', 'd/m/Y')
+                ->sortedBy('id', 'DESC');
+
+            $results = $qb->getResults();
+
+            $this->assertEquals(7, $qb->getCount());
+            $this->assertEquals(7, $results[0]['id']);
+            $this->assertEquals('Kurtis Weissnat', $results[0]['name']);
+        }
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_get_results_from_a_query_with_lt_date()
+    {
+        foreach ($this->usersArrays as $array) {
+            $qb = QueryBuilder::create($array)
+                ->addCriterion('registration_date', '01/05/2017', 'LT_DATE', 'd/m/Y')
+                ->sortedBy('id', 'DESC');
+
+            $results = $qb->getResults();
+
+            $this->assertEquals(3, $qb->getCount());
+            $this->assertEquals(10, $results[0]['id']);
+            $this->assertEquals('Clementina DuBuque', $results[0]['name']);
+        }
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_get_results_from_a_query_with_lte_date()
+    {
+        foreach ($this->usersArrays as $array) {
+            $qb = QueryBuilder::create($array)
+                ->addCriterion('registration_date', '01/05/2017', 'LTE_DATE', 'd/m/Y')
+                ->sortedBy('id', 'DESC');
+
+            $results = $qb->getResults();
+
+            $this->assertEquals(4, $qb->getCount());
+            $this->assertEquals(10, $results[0]['id']);
+            $this->assertEquals('Clementina DuBuque', $results[0]['name']);
+        }
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_get_results_from_a_query_with_equals_date()
+    {
+        foreach ($this->usersArrays as $array) {
+            $qb = QueryBuilder::create($array)
+                ->addCriterion('update_date', '2017-08-30', 'EQUALS_DATE', 'Y-m-d')
+                ->sortedBy('id', 'ASC');
+
+            $results = $qb->getResults();
+
+            $this->assertEquals(2, $qb->getCount());
+            $this->assertEquals(5, $results[0]['id']);
+            $this->assertEquals('Chelsey Dietrich', $results[0]['name']);
+        }
+    }
 }

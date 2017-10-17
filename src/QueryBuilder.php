@@ -78,10 +78,11 @@ class QueryBuilder
      * @param $key
      * @param $value
      * @param string $operator
+     * @param null $dateFormat
      * @return $this
      * @throws NotValidCriterionOperatorException
      */
-    public function addCriterion($key, $value, $operator = '=')
+    public function addCriterion($key, $value, $operator = '=', $dateFormat = null)
     {
         if (!$this->isAValidCriterionOperator($operator)) {
             throw new NotValidCriterionOperatorException($operator.' is not a valid operator.');
@@ -91,6 +92,7 @@ class QueryBuilder
             'key' => $key,
             'value' => $value,
             'operator' => $operator,
+            'date_format' => $dateFormat
         ];
 
         return $this;
@@ -209,7 +211,8 @@ class QueryBuilder
             $results = array_filter(
                 (isset($results)) ? $results : $this->array, function ($element) use ($criterion) {
                     return CriterionFilter::filter($criterion, $element);
-                });
+                }
+            );
         }
 
         return $results;

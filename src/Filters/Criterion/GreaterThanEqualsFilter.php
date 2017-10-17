@@ -17,7 +17,7 @@ class GreaterThanEqualsFilter implements FilterInterface
      * @param $valueToCompare
      * @return bool
      */
-    public function match($value, $valueToCompare)
+    public function match($value, $valueToCompare, $dateFormat = null)
     {
         return $value >= $valueToCompare;
     }
