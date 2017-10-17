@@ -425,7 +425,7 @@ class QueryBuilderTest extends TestCase
     {
         foreach ($this->usersArrays as $array) {
             $qb = QueryBuilder::create($array)
-                ->addCriterion('update_date', '2017-08-30', 'EQUALS_DATE', 'Y-m-d')
+                ->addCriterion('update_date', '2017-08-30', 'EQUALS_DATE')
                 ->sortedBy('id', 'ASC');
 
             $results = $qb->getResults();

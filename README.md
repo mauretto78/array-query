@@ -132,7 +132,7 @@ foreach ($qb->getResults() as $element){
 
 ## Working with dates
 
-You can perform queries based on datetime fields. You must specify **date format**:
+You can perform queries based on datetime fields. You must specify **date format** if your format is not `YYYY-mm-dd`:
 
 ```php
 use ArrayQuery\QueryBuilder;
