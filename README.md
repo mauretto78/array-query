@@ -143,7 +143,7 @@ $qb = QueryBuilder::create($array);
 $qb
     ->addCriterion('registration_date', '01/05/2017', 'GT_DATE', 'd/m/Y')
     ->addCriterion('rate', '3', '>')
-    ->sortedBy('registration_date', `DATE_DESC`, 'd/m/Y')
+    ->sortedBy('registration_date', 'DATE_DESC', 'd/m/Y')
     ->limit(0, 10);
 
 foreach ($qb->getResults() as $element){
