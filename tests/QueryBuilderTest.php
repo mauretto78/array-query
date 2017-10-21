@@ -435,4 +435,40 @@ class QueryBuilderTest extends TestCase
             $this->assertEquals('Chelsey Dietrich', $results[0]['name']);
         }
     }
+
+    /**
+     * @test
+     */
+    public function it_should_get_results_from_a_query_with_equals_date_sorted_by_date_asc()
+    {
+        foreach ($this->usersArrays as $array) {
+            $qb = QueryBuilder::create($array)
+                ->addCriterion('registration_date', '01/05/2017', 'LTE_DATE', 'd/m/Y')
+                ->sortedBy('registration_date', 'DATE_ASC', 'd/m/Y');
+
+            $results = $qb->getResults();
+
+            $this->assertEquals(4, $qb->getCount());
+            $this->assertEquals(10, $results[0]['id']);
+            $this->assertEquals('Clementina DuBuque', $results[0]['name']);
+        }
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_get_results_from_a_query_with_equals_date_sorted_by_date_desc()
+    {
+        foreach ($this->usersArrays as $array) {
+            $qb = QueryBuilder::create($array)
+                ->addCriterion('registration_date', '01/05/2017', 'LTE_DATE', 'd/m/Y')
+                ->sortedBy('registration_date', 'DATE_DESC', 'd/m/Y');
+
+            $results = $qb->getResults();
+
+            $this->assertEquals(4, $qb->getCount());
+            $this->assertEquals(3, $results[0]['id']);
+            $this->assertEquals('Clementine Bauch', $results[0]['name']);
+        }
+    }
 }

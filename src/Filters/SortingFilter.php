@@ -18,6 +18,8 @@ class SortingFilter extends AbstractFilter
     public static $operatorsMap = [
         'ASC',
         'DESC',
+        'DATE_ASC',
+        'DATE_DESC',
     ];
 
     /**
@@ -45,14 +47,19 @@ class SortingFilter extends AbstractFilter
             $valueA = self::getArrayElementValueFromKey($sortingArray['key'], $first);
             $valueB = self::getArrayElementValueFromKey($sortingArray['key'], $second);
 
-            if ($valueA === $valueB) {
+            if(isset($sortingArray['format'])){
+                $valueA = \DateTimeImmutable::createFromFormat(($sortingArray['format']) ?: 'Y-m-d', $valueA);
+                $valueB = \DateTimeImmutable::createFromFormat(($sortingArray['format']) ?: 'Y-m-d', $valueB);
+            }
+
+            if ($valueA == $valueB) {
                 return 0;
             }
 
             return ($valueA < $valueB) ? -1 : 1;
         });
 
-        if ($sortingArray['order'] === 'DESC') {
+        if ($sortingArray['order'] === 'DESC' || $sortingArray['order'] === 'DATE_DESC') {
             return array_reverse($results);
         }
 

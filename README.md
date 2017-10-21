@@ -110,6 +110,8 @@ foreach ($qb->getResults() as $element){
 
 * `ASC` (default operator, can be omitted)
 * `DESC`
+* `DATE_ASC`
+* `DATE_DESC`
 
 ## Performing Queries
 
@@ -132,7 +134,7 @@ foreach ($qb->getResults() as $element){
 
 ## Working with dates
 
-You can perform queries based on datetime fields. You must specify **date format** if your format is not `YYYY-mm-dd`:
+You can perform queries based on datetime fields. You can use `DATE_ASC` or `DATE_DESC` operator to sort results by date. You must specify **date format** if your format is not `YYYY-mm-dd`:
 
 ```php
 use ArrayQuery\QueryBuilder;
@@ -141,7 +143,7 @@ $qb = QueryBuilder::create($array);
 $qb
     ->addCriterion('registration_date', '01/05/2017', 'GT_DATE', 'd/m/Y')
     ->addCriterion('rate', '3', '>')
-    ->sortedBy('title')
+    ->sortedBy('registration_date', `DATE_DESC`, 'd/m/Y')
     ->limit(0, 10);
 
 foreach ($qb->getResults() as $element){

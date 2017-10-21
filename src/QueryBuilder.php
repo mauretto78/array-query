@@ -115,7 +115,7 @@ class QueryBuilder
      *
      * @throws NotValidSortingOperatorException
      */
-    public function sortedBy($key, $operator = 'ASC')
+    public function sortedBy($key, $operator = 'ASC', $format = null)
     {
         if (!$this->isAValidSortingOperator($operator)) {
             throw new NotValidSortingOperatorException($operator.' is not a valid sorting operator.');
@@ -124,6 +124,7 @@ class QueryBuilder
         $this->sortedBy = [
             'key' => $key,
             'order' => $operator,
+            'format' => $format
         ];
 
         return $this;
