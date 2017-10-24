@@ -21,8 +21,7 @@ class EndsWithFilter implements FilterInterface
     {
         $valueToCompareLenght = strlen($valueToCompare);
         $valueLenght = strlen($value);
-        $starts = $valueLenght-$valueToCompareLenght;
-        $valueFoot = substr($value, $starts, $valueToCompareLenght);
+        $valueFoot = substr($value, ($valueLenght-$valueToCompareLenght), $valueToCompareLenght);
 
         return $valueToCompare === $valueFoot;
     }
