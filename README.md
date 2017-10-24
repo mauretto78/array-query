@@ -153,6 +153,10 @@ foreach ($qb->getResults() as $element){
 }
 ```
 
+## More examples
+
+Please refer to [QueryBuilderTest](https://github.com/mauretto78/array-query/blob/master/tests/QueryBuilderTest.php) for more examples.
+
 ## Support
 
 If you found an issue or had an idea please refer [to this section](https://github.com/mauretto78/array-query/issues).
