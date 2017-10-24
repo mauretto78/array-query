@@ -37,7 +37,7 @@ abstract class AbstractFilter
     {
         $convertedArray = [];
 
-        foreach ((array)$arrayElement as $key => $element){
+        foreach ((array)$arrayElement as $key => $element) {
             $key = explode("\\", $key);
             $key = end($key);
             $key = explode("\000", $key);

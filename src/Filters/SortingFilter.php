@@ -47,7 +47,7 @@ class SortingFilter extends AbstractFilter
             $valueA = self::getArrayElementValueFromKey($sortingArray['key'], $first);
             $valueB = self::getArrayElementValueFromKey($sortingArray['key'], $second);
 
-            if(isset($sortingArray['format'])){
+            if (isset($sortingArray['format'])) {
                 $valueA = \DateTimeImmutable::createFromFormat(($sortingArray['format']) ?: 'Y-m-d', $valueA);
                 $valueB = \DateTimeImmutable::createFromFormat(($sortingArray['format']) ?: 'Y-m-d', $valueB);
             }

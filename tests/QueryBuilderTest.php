@@ -349,6 +349,42 @@ class QueryBuilderTest extends TestCase
     /**
      * @test
      */
+    public function it_should_get_results_from_a_query_with_starts_with()
+    {
+        foreach ($this->usersArrays as $array) {
+            $qb = QueryBuilder::create($array)
+                ->addCriterion('username', 'Ka', 'STARTS_WITH')
+                ->sortedBy('username', 'ASC');
+
+            $results = $qb->getResults();
+
+            $this->assertEquals(2, $qb->getCount());
+            $this->assertEquals(5, $results[0]['id']);
+            $this->assertEquals('Kamren', $results[0]['username']);
+        }
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_get_results_from_a_query_with_ends_with()
+    {
+        foreach ($this->usersArrays as $array) {
+            $qb = QueryBuilder::create($array)
+                ->addCriterion('email', 'biz', 'ENDS_WITH')
+                ->sortedBy('email', 'DESC');
+
+            $results = $qb->getResults();
+
+            $this->assertEquals(3, $qb->getCount());
+            $this->assertEquals(7, $results[0]['id']);
+            $this->assertEquals('Telly.Hoeger@billy.biz', $results[0]['email']);
+        }
+    }
+
+    /**
+     * @test
+     */
     public function it_should_get_results_from_a_query_with_gt_date()
     {
         foreach ($this->usersArrays as $array) {

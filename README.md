@@ -96,15 +96,17 @@ foreach ($qb->getResults() as $element){
 * `<=`
 * `>=`
 * `!=`
-* `GT_DATE`
-* `GTE_DATE`
-* `LT_DATE`
-* `LTE_DATE`
-* `EQUALS_DATE`
-* `IN_ARRAY`
-* `IN_ARRAY_INVERSED`
 * `ARRAY_MATCH`
 * `CONTAINS` (case insensitive)
+* `ENDS_WITH`
+* `EQUALS_DATE`
+* `GT_DATE`
+* `GTE_DATE`
+* `IN_ARRAY`
+* `IN_ARRAY_INVERSED`
+* `LT_DATE`
+* `LTE_DATE`
+* `STARTS_WITH`
 
 ### Avaliable sorting operators
 
@@ -122,7 +124,7 @@ use ArrayQuery\QueryBuilder;
 
 $qb = QueryBuilder::create($array);
 $qb
-    ->addCriterion('title', ['Leanne'], 'ARRAY')
+    ->addCriterion('title', ['Leanne'], 'IN_ARRAY')
     ->addCriterion('rate', '3', '>')
     ->sortedBy('title')
     ->limit(0, 10);
