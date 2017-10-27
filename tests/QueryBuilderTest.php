@@ -507,4 +507,64 @@ class QueryBuilderTest extends TestCase
             $this->assertEquals('Clementine Bauch', $results[0]['name']);
         }
     }
+
+    /**
+    * @test
+    */
+    public function it_should_get_results_from_a_query_with_joins()
+    {
+        $users = [
+            [
+                'id' => 1,
+                'name' => 'Mauro Cassani',
+                'id_category' => 3,
+                'email' => 'assistenza@easy-grafica.com'
+            ],[
+                'id' => 2,
+                'name' => 'Mario Rossi',
+                'id_category' => 3,
+                'email' => 'mario.rossi@gmail.com'
+            ],[
+                'id' => 3,
+                'name' => 'Maria Bianchi',
+                'id_category' => 1,
+                'email' => 'maria.bianchi@gmail.com'
+            ]
+        ];
+        $category = [
+            'id' => 3,
+            'name' => 'Web Developer'
+        ];
+
+        $qb = QueryBuilder::create($users)
+            ->join($category, 'category', 'id_category', 'id')
+            ->addCriterion('category.id', 3);
+
+        $results = $qb->getResults();
+        $expectedArray = [
+            [
+                'id' => 1,
+                'name' => 'Mauro Cassani',
+                'id_category' => 3,
+                'email' => 'assistenza@easy-grafica.com',
+                'category'=> [
+                    'id' => 3,
+                    'name' => 'Web Developer'
+                ]
+            ],
+            [
+                'id' => 2,
+                'name' => 'Mario Rossi',
+                'id_category' => 3,
+                'email' => 'mario.rossi@gmail.com',
+                'category'=> [
+                    'id' => 3,
+                    'name' => 'Web Developer'
+                ]
+            ]
+        ];
+
+        $this->assertEquals($results, $expectedArray);
+        $this->assertEquals(2, $qb->getCount());
+    }
 }

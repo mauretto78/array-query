@@ -17,6 +17,7 @@ use ArrayQuery\Exceptions\NotValidKeyElementInArrayException;
 use ArrayQuery\Exceptions\NotValidLimitsOfArrayException;
 use ArrayQuery\Exceptions\NotValidSortingOperatorException;
 use ArrayQuery\Filters\CriterionFilter;
+use ArrayQuery\Filters\JoinFilter;
 use ArrayQuery\Filters\SortingFilter;
 use ArrayQuery\Filters\LimitFilter;
 
@@ -36,6 +37,11 @@ class QueryBuilder
      * @var array
      */
     private $limit;
+
+    /**
+     * @var array
+     */
+    private $join;
 
     /**
      * @var array
@@ -171,12 +177,24 @@ class QueryBuilder
         return $this;
     }
 
+    public function join($array, $arrayName, $parentKey, $foreignKey)
+    {
+        $this->join[] = [
+            'array' => $array,
+            'arrayName' => $arrayName,
+            'parentKey' => $parentKey,
+            'foreignKey' => $foreignKey,
+        ];
+
+        return $this;
+    }
+
     /**
      * @return array
      */
     public function getResults()
     {
-        $results = $this->applySortingFilter($this->applyLimitFilter($this->applyCriteriaFilter()));
+        $results = $this->applySortingFilter($this->applyLimitFilter($this->applyCriteriaFilter($this->applyJoinFilter())));
 
         return array_map([$this, 'castElementToArray'], $results);
     }
@@ -199,18 +217,23 @@ class QueryBuilder
         return LimitFilter::filter($array, $this->limit);
     }
 
+    private function applyJoinFilter()
+    {
+        return JoinFilter::filter($this->array, $this->join);
+    }
+
     /**
      * @return array
      */
-    private function applyCriteriaFilter()
+    private function applyCriteriaFilter(array $array)
     {
         if (count($this->criteria) === 0) {
-            return $this->array;
+            return $array;
         }
 
         foreach ($this->criteria as $criterion) {
             $results = array_filter(
-                (isset($results)) ? $results : $this->array, function ($element) use ($criterion) {
+                (isset($results)) ? $results : $array, function ($element) use ($criterion) {
                     return CriterionFilter::filter($criterion, $element);
                 }
             );

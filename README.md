@@ -115,6 +115,45 @@ foreach ($qb->getResults() as $element){
 * `DATE_ASC`
 * `DATE_DESC`
 
+## Joins
+
+You can join arrays. Please consider this full example:
+
+```php
+use ArrayQuery\QueryBuilder;
+
+$users = [
+    [
+        'id' => 1,
+        'name' => 'Mauro Cassani',
+        'id_category' => 3,
+        'email' => 'assistenza@easy-grafica.com'
+    ],[
+        'id' => 2,
+        'name' => 'Mario Rossi',
+        'id_category' => 3,
+        'email' => 'mario.rossi@gmail.com'
+    ],[
+        'id' => 3,
+        'name' => 'Maria Bianchi',
+        'id_category' => 1,
+        'email' => 'maria.bianchi@gmail.com'
+    ]
+];
+$category = [
+    'id' => 3,
+    'name' => 'Web Developer'
+];
+
+$qb = QueryBuilder::create($users)
+    ->join($category, 'category', 'id_category', 'id')
+    ->addCriterion('category.id', 3);
+
+foreach ($qb->getResults() as $element){
+    // ...
+}
+```
+
 ## Performing Queries
 
 You can add criteria and specify limit and offset for your query results:
