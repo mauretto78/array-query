@@ -156,6 +156,38 @@ class QueryBuilderTest extends TestCase
     /**
      * @test
      */
+    public function it_should_get_the_first_result_with_no_criteria_applied()
+    {
+        foreach ($this->usersArrays as $array) {
+            $qb = QueryBuilder::create($array);
+
+            $first = $qb->getFirstResult();
+
+            $this->assertEquals(1, $first['id']);
+            $this->assertEquals('Leanne Graham', $first['name']);
+            $this->assertEquals('Sincere@april.biz', $first['email']);
+        }
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_get_the_last_result_with_no_criteria_applied()
+    {
+        foreach ($this->usersArrays as $array) {
+            $qb = QueryBuilder::create($array);
+
+            $last = $qb->getLastResult();
+
+            $this->assertEquals(10, $last['id']);
+            $this->assertEquals('Clementina DuBuque', $last['name']);
+            $this->assertEquals('Rey.Padberg@karina.biz', $last['email']);
+        }
+    }
+
+    /**
+     * @test
+     */
     public function it_should_get_results_from_a_simple_query()
     {
         foreach ($this->usersArrays as $array) {

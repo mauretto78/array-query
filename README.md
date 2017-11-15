@@ -87,6 +87,12 @@ $qb->addCriterion('company.name', 'Romaguera-Jacobson');
 foreach ($qb->getResults() as $element){
     // ...
 }
+
+// get first result
+$first = $qb->getFirstResult();
+
+// get last result
+$last = $qb->getLastResult();
 ```
 
 ### Avaliable criteria operators

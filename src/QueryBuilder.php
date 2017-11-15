@@ -177,6 +177,14 @@ class QueryBuilder
         return $this;
     }
 
+    /**
+     * @param $array
+     * @param $arrayName
+     * @param $parentKey
+     * @param $foreignKey
+     *
+     * @return $this
+     */
     public function join($array, $arrayName, $parentKey, $foreignKey)
     {
         $this->join[] = [
@@ -200,7 +208,26 @@ class QueryBuilder
     }
 
     /**
+     * @return array
+     */
+    public function getFirstResult()
+    {
+        return $this->getResults()[0] ?: [];
+    }
+
+    /**
+     * @return array
+     */
+    public function getLastResult()
+    {
+        $count = count($this->getResults());
+
+        return $this->getResults()[$count-1] ?: [];
+    }
+
+    /**
      * @param array $array
+     *
      * @return array
      */
     private function applySortingFilter(array $array)
@@ -210,6 +237,7 @@ class QueryBuilder
 
     /**
      * @param array $array
+     *
      * @return array
      */
     private function applyLimitFilter(array $array)
@@ -217,6 +245,9 @@ class QueryBuilder
         return LimitFilter::filter($array, $this->limit);
     }
 
+    /**
+     * @return array
+     */
     private function applyJoinFilter()
     {
         return JoinFilter::filter($this->array, $this->join);
