@@ -161,7 +161,7 @@ foreach ($qb->getResults() as $element){
 }
 ```
 
-## Performing Queries
+## Limit and Offset 
 
 You can add criteria and specify limit and offset for your query results:
 
