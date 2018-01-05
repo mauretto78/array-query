@@ -210,6 +210,14 @@ class QueryBuilder
     /**
      * @return array
      */
+    public function getResult($n)
+    {
+        return $this->getResults()[$n-1] ?: [];
+    }
+
+    /**
+     * @return array
+     */
     public function getFirstResult()
     {
         return $this->getResults()[0] ?: [];

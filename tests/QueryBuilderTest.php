@@ -621,6 +621,22 @@ class QueryBuilderTest extends TestCase
     /**
      * @test
      */
+    public function it_should_get_a_single_result_from_a_query()
+    {
+        foreach ($this->usersArrays as $array) {
+            $qb = QueryBuilder::create($array);
+
+            $result = $qb->getResult(3);
+
+            $this->assertEquals(3, $result['id']);
+            $this->assertEquals('Clementine Bauch', $result['name']);
+            $this->assertEquals($qb->getResult(1), $qb->getFirstResult());
+        }
+    }
+
+    /**
+     * @test
+     */
     public function it_should_get_shuffled_results_from_a_query()
     {
         foreach ($this->usersArrays as $array) {

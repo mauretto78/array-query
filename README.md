@@ -93,6 +93,9 @@ $first = $qb->getFirstResult();
 
 // get last result
 $last = $qb->getLastResult();
+
+// get a result by index
+$thirdResult = $qb->getResult(3);
 ```
 
 ### Avaliable criteria operators
@@ -221,7 +224,7 @@ foreach ($qb->getResults() as $element){
 }
 ```
 
-## Shuffled Results
+## Shuffled results
 
 You can shuffle query results by using `getShuffledResults` method:
 
