@@ -221,6 +221,20 @@ foreach ($qb->getResults() as $element){
 }
 ```
 
+## Shuffled Results
+
+You can shuffle query results by using `getShuffledResults` method:
+
+```php
+use ArrayQuery\QueryBuilder;
+
+$qb = QueryBuilder::create($array);
+
+foreach ($qb->getShuffledResults() as $element){
+    // ...
+}
+```
+
 ## More examples
 
 Please refer to [QueryBuilderTest](https://github.com/mauretto78/array-query/blob/master/tests/QueryBuilderTest.php) for more examples.

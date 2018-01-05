@@ -617,4 +617,16 @@ class QueryBuilderTest extends TestCase
             $this->assertArrayHasKey('add', $qb->getResults()[1]);
         }
     }
+
+    /**
+     * @test
+     */
+    public function it_should_get_shuffled_results_from_a_query()
+    {
+        foreach ($this->usersArrays as $array) {
+            $qb = QueryBuilder::create($array);
+
+            $this->assertCount(10, $qb->getShuffledResults());
+        }
+    }
 }

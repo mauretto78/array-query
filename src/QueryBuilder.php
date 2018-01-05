@@ -226,6 +226,22 @@ class QueryBuilder
     }
 
     /**
+     * @return array
+     */
+    public function getShuffledResults()
+    {
+        $shuffledArray = [];
+        $keys = array_keys($this->getResults());
+        shuffle($keys);
+
+        foreach ($keys as $key) {
+            $shuffledArray[$key] = $this->getResults()[$key];
+        }
+
+        return $shuffledArray;
+    }
+
+    /**
      * @param array $array
      *
      * @return array
