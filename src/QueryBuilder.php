@@ -268,6 +268,19 @@ class QueryBuilder
                     return CriterionFilter::filter($criterion, $element);
                 }
             );
+
+            $results = array_map(function($result) use ($criterion) {
+                $key = explode(Constants::ALIAS_DELIMITER, $criterion['key']);
+                if(count($key) > 1){
+                    $oldkey = explode(Constants::ARRAY_SEPARATOR, $key[0]);
+                    $newkey = $key[1];
+
+                    $result = (array)($result);
+                    $result[$newkey] = $result[$oldkey[0]];
+                    unset($result[$oldkey[0]]);
+                }
+                return $result;
+            }, $results);
         }
 
         return $results;

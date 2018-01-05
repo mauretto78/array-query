@@ -599,4 +599,22 @@ class QueryBuilderTest extends TestCase
         $this->assertEquals($results, $expectedArray);
         $this->assertEquals(2, $qb->getCount());
     }
+
+    /**
+     * @test
+     */
+    public function it_should_get_results_from_a_query_with_aliases()
+    {
+        foreach ($this->usersArrays as $array) {
+            $qb = QueryBuilder::create($array)
+                ->addCriterion('name as n', 'Ervin Howell')
+                ->addCriterion('username as user', 'Antonette')
+                ->addCriterion('address.street as add', 'Victor Plains');
+
+            $this->assertCount(1, $qb->getResults());
+            $this->assertArrayHasKey('n', $qb->getResults()[1]);
+            $this->assertArrayHasKey('user', $qb->getResults()[1]);
+            $this->assertArrayHasKey('add', $qb->getResults()[1]);
+        }
+    }
 }

@@ -199,6 +199,28 @@ foreach ($qb->getResults() as $element){
 }
 ```
 
+## Aliases
+
+You can use aliases by using the `as` keyword as a delimiter. Do the following:
+
+```php
+use ArrayQuery\QueryBuilder;
+
+$qb = QueryBuilder::create($array);
+$qb
+    ->addCriterion('name as n', 'Ervin Howell')
+    ->addCriterion('username as user', 'Antonette')
+    ->addCriterion('address.street as add', 'Victor Plains');
+
+foreach ($qb->getResults() as $element){
+    // ...
+    // now you have
+    // $element['n']
+    // $element['user']
+    // $element['add']
+}
+```
+
 ## More examples
 
 Please refer to [QueryBuilderTest](https://github.com/mauretto78/array-query/blob/master/tests/QueryBuilderTest.php) for more examples.

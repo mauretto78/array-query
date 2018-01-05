@@ -10,6 +10,7 @@
 
 namespace ArrayQuery\Filters;
 
+use ArrayQuery\Constants;
 use ArrayQuery\Filters\Criterion\FilterInterface;
 
 class CriterionFilter extends AbstractFilter
@@ -44,13 +45,18 @@ class CriterionFilter extends AbstractFilter
      */
     public static function filter($criterion, $element)
     {
-        $value = self::getArrayElementValueFromKey($criterion['key'], $element);
+        $key = explode(Constants::ALIAS_DELIMITER, $criterion['key']);
         $valueToCompare = $criterion['value'];
-        $filterClass = 'ArrayQuery\\Filters\\Criterion\\'.self::$operatorsMap[$criterion['operator']];
+        $operator = $criterion['operator'];
+        $dateFormat = $criterion['date_format'];
+
+        $value = self::getArrayElementValueFromKey($key[0], $element);
+
+        $filterClass = 'ArrayQuery\\Filters\\Criterion\\'.self::$operatorsMap[$operator];
 
         /** @var FilterInterface $filter */
         $filter = new $filterClass();
 
-        return $filter->match($value, $valueToCompare, $criterion['date_format']);
+        return $filter->match($value, $valueToCompare, $dateFormat);
     }
 }

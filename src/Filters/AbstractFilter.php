@@ -10,12 +10,11 @@
 
 namespace ArrayQuery\Filters;
 
+use ArrayQuery\Constants;
 use ArrayQuery\Exceptions\NotValidKeyElementInArrayException;
 
 abstract class AbstractFilter
 {
-    const ARRAY_SEPARATOR = '.';
-
     /**
      * @param $key
      * @param $arrayElement
@@ -24,7 +23,7 @@ abstract class AbstractFilter
     protected static function getArrayElementValueFromKey($key, $arrayElement)
     {
         return self::getValueFromKeysArray(
-            explode(self::ARRAY_SEPARATOR, $key),
+            explode(Constants::ARRAY_SEPARATOR, $key),
             (is_object($arrayElement)) ? self::convertObjectToArray($arrayElement) : $arrayElement
         );
     }
