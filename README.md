@@ -217,7 +217,7 @@ foreach ($qb->getResults() as $element){
     // now you have
     // $element['n']
     // $element['user']
-    // $element['add']
+    // $element['add']['street']
 }
 ```
 
