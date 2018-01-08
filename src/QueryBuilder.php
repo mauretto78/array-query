@@ -211,7 +211,7 @@ class QueryBuilder
     {
         $results = $this->applySortingFilter($this->applyLimitFilter($this->applyCriteriaFilter($this->applyJoinFilter())));
 
-        return array_map([$this, 'castElementToArray'], $results);
+        return array_map([ArrayConverter::class, 'convertToPlainArray'], $results);
     }
 
     /**
@@ -315,15 +315,6 @@ class QueryBuilder
         }
 
         return $results;
-    }
-
-    /**
-     * @param $element
-     * @return array
-     */
-    private function castElementToArray($element)
-    {
-        return ArrayConverter::convertToPlainArray($element);
     }
 
     /**

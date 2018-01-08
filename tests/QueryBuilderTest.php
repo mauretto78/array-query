@@ -668,7 +668,7 @@ class QueryBuilderTest extends TestCase
     /**
      * @test
      */
-    public function it_should_get_a_single_result_from_a_query()
+    public function it_should_get_the_first_result_from_a_query()
     {
         foreach ($this->usersArrays as $array) {
             $qb = QueryBuilder::create($array);
