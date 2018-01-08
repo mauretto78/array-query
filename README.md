@@ -63,7 +63,7 @@ $array = [
 
 QueryBuilder::create($array);
 
-// to add an element to your array
+// to add an element to your array. Do this BEFORE make a query on the array
 $element = [
    'id' => 4,
    'title' => 'Patricia Lebsack',
@@ -77,7 +77,7 @@ $element = [
 ];
 $qb->addElement($element, 4);
 
-// to remove an element from array by his key
+// to remove an element from array by his key. Do this BEFORE make a query on the array
 $qb->removeElement(3);
 
 ```
