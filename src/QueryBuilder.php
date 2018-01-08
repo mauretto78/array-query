@@ -13,6 +13,7 @@ namespace ArrayQuery;
 use ArrayQuery\Exceptions\EmptyArrayException;
 use ArrayQuery\Exceptions\InvalidArrayException;
 use ArrayQuery\Exceptions\NotConsistentDataException;
+use ArrayQuery\Exceptions\NotExistingElementException;
 use ArrayQuery\Exceptions\NotValidCriterionOperatorException;
 use ArrayQuery\Exceptions\NotValidKeyElementInArrayException;
 use ArrayQuery\Exceptions\NotValidLimitsOfArrayException;
@@ -85,6 +86,33 @@ class QueryBuilder
         }
 
         $this->array = $array;
+    }
+
+    /**
+     * @param $element
+     * @param null $key
+     * @throws NotConsistentDataException
+     */
+    public function addElement($element, $key = null)
+    {
+        if (false === ConsistencyChecker::isElementValid($element, $this->array)) {
+            throw new NotConsistentDataException('Element provided has no consistent data.');
+        }
+
+        $this->array[$key] = $element;
+    }
+
+    /**
+     * @param $key
+     * @throws NotExistingElementException
+     */
+    public function removeElement($key)
+    {
+        if(!isset($this->array[$key])){
+            throw new NotExistingElementException(sprintf('Element with key %s does not exists.', $key));
+        }
+
+        unset($this->array[$key]);
     }
 
     /**

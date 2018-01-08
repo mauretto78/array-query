@@ -63,6 +63,23 @@ $array = [
 
 QueryBuilder::create($array);
 
+// to add an element to your array
+$element = [
+   'id' => 4,
+   'title' => 'Patricia Lebsack',
+   'email' => 'Julianne.OConner@kory.org',
+   'rate' => 2,
+   'company' => [
+       'name' => 'Robel-Corkery',
+       'catchPhrase' => 'Multi-tiered zero tolerance productivity',
+       'bs' => 'transition cutting-edge web services'
+   ]
+];
+$qb->addElement($element, 4);
+
+// to remove an element from array by his key
+$qb->removeElement(3);
+
 ```
 
 ## Data consistency

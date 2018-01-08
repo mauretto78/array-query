@@ -683,6 +683,98 @@ class QueryBuilderTest extends TestCase
 
     /**
      * @test
+     * @expectedException \ArrayQuery\Exceptions\NotConsistentDataException
+     * @expectedExceptionMessage Element provided has no consistent data.
+     */
+    public function it_throws_NotConsistentDataException_if_an_element_with_not_consistent_data_is_provided()
+    {
+        foreach ($this->usersArrays as $array) {
+            $qb = QueryBuilder::create($array);
+            $element = [
+                'id' => 234,
+                'name' => 'Clementine Bauch 23',
+                'username' => 'Samantha',
+                'email' => 'Nathan@yesenia.net',
+            ];
+
+            $qb->addElement($element, 234);
+        }
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_add_an_element_to_array()
+    {
+        foreach ($this->usersArrays as $array) {
+            $qb = QueryBuilder::create($array);
+            $element = [
+                'id' => 23,
+                'name' => 'Clementine Bauch 23',
+                'username' => 'Samantha',
+                'email' => 'Nathan@yesenia.net',
+                'address' => [
+                    'street' =>  'Douglas Extension',
+                    'suite' => 'Suite 847',
+                    'city' => 'McKenziehaven',
+                    'zipcode' => '59590-4157',
+                    'geo' => [
+                        'lat' => '-68.6102',
+                        'lng' => '-47.0653'
+                    ]
+                ],
+                'phone' => '1-463-123-4447',
+                'website' => 'ramiro.info',
+                'company' => [
+                    'name' => 'Romaguera-Jacobson',
+                    'catchPhrase' => 'Face to face bifurcated interface',
+                    'bs' => 'e-enable strategic applications'
+                ],
+                'registration_date' => '01/05/2017',
+                'update_date' =>  '2017-05-30',
+                'tags' => [
+                    'apple',
+                    'pinapple',
+                    'pear',
+                    'apple-pie'
+                ]
+            ];
+
+            $qb->addElement($element, 23);
+
+            $this->assertCount(11, $qb->getResults());
+        }
+    }
+
+    /**
+     * @test
+     * @expectedException \ArrayQuery\Exceptions\NotExistingElementException
+     * @expectedExceptionMessage Element with key 232 does not exists.
+     */
+    public function it_throws_NotConsistentDataEfffxception_if_an_wrong_key_element_is_provided()
+    {
+        foreach ($this->usersArrays as $array) {
+            $qb = QueryBuilder::create($array);
+            $qb->removeElement(232);
+        }
+    }
+
+    /**
+     * @test
+     */
+    public function it_should_remove_an_element_to_array()
+    {
+        foreach ($this->usersArrays as $array) {
+            $qb = QueryBuilder::create($array);
+            $qb->removeElement(2);
+            $qb->removeElement(3);
+
+            $this->assertCount(8, $qb->getResults());
+        }
+    }
+
+    /**
+     * @test
      */
     public function it_should_get_shuffled_results_from_a_query()
     {
