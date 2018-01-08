@@ -65,6 +65,55 @@ QueryBuilder::create($array);
 
 ```
 
+## Data consistency
+
+QueryBuilder checks for your data consistency. If an inconsistency is detected a `NotConsistentDataException` will be raised:
+
+```php
+use ArrayQuery\QueryBuilder;
+
+$array = [
+    [
+        'id' => 1,
+        'title' => 'Leanne Graham',
+        'email' => 'Sincere@april.biz',
+        'rate' => 5,
+        'company' => [
+            'name' => 'Romaguera-Jacobson',
+            'catchPhrase' => 'Face to face bifurcated interface',
+            'bs' => 'e-enable strategic applications'
+        ]
+    ],
+    [
+        'id' => 2,
+        'title' => 'Ervin Howell',
+        'email' => 'Shanna@melissa.tv',
+        'rate' => 3,
+        'company' => [
+            'name' => 'Robel-Corkery',
+            'catchPhrase' => 'Multi-tiered zero tolerance productivity',
+            'bs' => 'transition cutting-edge web services'
+        ]
+    ],
+    [
+        'id' => 3,
+        'title' => 'Clementine Bauch',
+        'email' => 'Nathan@yesenia.net',
+        'rate' => 4,
+        'company' => [
+            'name' => 'Keebler LLC',
+            'catchPhrase' => 'User-centric fault-tolerant solution',
+            'bs' => 'revolutionize end-to-end systems'
+        ],
+        'extra-field' => 'this is an extra field'
+    ],
+]
+
+// NotConsistentDataException will be raised
+QueryBuilder::create($array);
+
+```
+
 ## Quering, sorting and get results
 
 You can perform queries on your array. You can concatenate criteria:
