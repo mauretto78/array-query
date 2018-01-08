@@ -12,6 +12,7 @@ namespace ArrayQuery\Filters;
 
 use ArrayQuery\Constants;
 use ArrayQuery\Exceptions\NotValidKeyElementInArrayException;
+use ArrayQuery\Helpers\ArrayConverter;
 
 abstract class AbstractFilter
 {
@@ -36,7 +37,7 @@ abstract class AbstractFilter
     {
         $convertedArray = [];
 
-        foreach ((array)$arrayElement as $key => $element) {
+        foreach (ArrayConverter::convertToPlainArray($arrayElement) as $key => $element) {
             $key = explode("\\", $key);
             $key = end($key);
             $key = explode("\000", $key);
@@ -58,7 +59,7 @@ abstract class AbstractFilter
         if (count($keysArray)>1) {
             $key = array_shift($keysArray);
 
-            return self::getValueFromKeysArray($keysArray, (array) $arrayElement[$key]);
+            return self::getValueFromKeysArray($keysArray, ArrayConverter::convertToPlainArray($arrayElement[$key]));
         }
 
         if (!isset($arrayElement[$keysArray[0]])) {

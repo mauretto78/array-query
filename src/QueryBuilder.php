@@ -12,6 +12,7 @@ namespace ArrayQuery;
 
 use ArrayQuery\Exceptions\EmptyArrayException;
 use ArrayQuery\Exceptions\InvalidArrayException;
+use ArrayQuery\Exceptions\NotConsistentDataException;
 use ArrayQuery\Exceptions\NotValidCriterionOperatorException;
 use ArrayQuery\Exceptions\NotValidKeyElementInArrayException;
 use ArrayQuery\Exceptions\NotValidLimitsOfArrayException;
@@ -20,6 +21,8 @@ use ArrayQuery\Filters\CriterionFilter;
 use ArrayQuery\Filters\JoinFilter;
 use ArrayQuery\Filters\SortingFilter;
 use ArrayQuery\Filters\LimitFilter;
+use ArrayQuery\Helpers\ArrayConverter;
+use ArrayQuery\Helpers\ConsistencyChecker;
 
 class QueryBuilder
 {
@@ -67,14 +70,18 @@ class QueryBuilder
     }
 
     /**
-     * @param $array
-     *
+     * @param array $array
      * @throws EmptyArrayException
+     * @throws NotConsistentDataException
      */
     private function setArray(array $array)
     {
         if (empty($array)) {
             throw new EmptyArrayException('Empty array provided.');
+        }
+
+        if (false === ConsistencyChecker::isValid($array)) {
+            throw new NotConsistentDataException('Array provided has no consistent data.');
         }
 
         $this->array = $array;
@@ -293,13 +300,13 @@ class QueryBuilder
                 }
             );
 
-            $results = array_map(function($result) use ($criterion) {
+            $results = array_map(function ($result) use ($criterion) {
                 $key = explode(Constants::ALIAS_DELIMITER, $criterion['key']);
-                if(count($key) > 1){
+                if (count($key) > 1) {
                     $oldkey = explode(Constants::ARRAY_SEPARATOR, $key[0]);
                     $newkey = $key[1];
 
-                    $result = (array)($result);
+                    $result = ArrayConverter::convertToPlainArray($result);
                     $result[$newkey] = $result[$oldkey[0]];
                     unset($result[$oldkey[0]]);
                 }
@@ -316,7 +323,7 @@ class QueryBuilder
      */
     private function castElementToArray($element)
     {
-        return (array) $element;
+        return ArrayConverter::convertToPlainArray($element);
     }
 
     /**

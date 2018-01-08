@@ -40,6 +40,53 @@ class QueryBuilderTest extends TestCase
 
     /**
      * @test
+     * @expectedException \ArrayQuery\Exceptions\NotConsistentDataException
+     * @expectedExceptionMessage Array provided has no consistent data.
+     */
+    public function it_throws_NotConsistentDataException_if_an_array_with_not_consistent_data_is_provided()
+    {
+        $array = [
+            [
+                'id' => 1,
+                'title' => 'Leanne Graham',
+                'email' => 'Sincere@april.biz',
+                'rate' => 5,
+                'company' => [
+                    'name' => 'Romaguera-Jacobson',
+                    'catchPhrase' => 'Face to face bifurcated interface',
+                    'bs' => 'e-enable strategic applications'
+                ]
+            ],
+            [
+                'id' => 2,
+                'title' => 'Ervin Howell',
+                'email' => 'Shanna@melissa.tv',
+                'rate' => 3,
+                'company' => [
+                    'name' => 'Robel-Corkery',
+                    'catchPhrase' => 'Multi-tiered zero tolerance productivity',
+                    'bs' => 'transition cutting-edge web services'
+                ]
+            ],
+            [
+                'id' => 3,
+                'title' => 'Clementine Bauch',
+                'email' => 'Nathan@yesenia.net',
+                'rate' => 4,
+                'company' => [
+                    'name' => 'Keebler LLC',
+                    'catchPhrase' => 'User-centric fault-tolerant solution',
+                    'bs' => 'revolutionize end-to-end systems'
+                ],
+                'extra-field' => 'this is an extra field'
+            ],
+        ];
+
+        QueryBuilder::create($array);
+    }
+
+    /**
+     * @test
      * @expectedException \ArrayQuery\Exceptions\NotValidCriterionOperatorException
      * @expectedExceptionMessage $$$$ is not a valid operator.
      */
