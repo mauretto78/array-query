@@ -22,7 +22,7 @@ use ArrayQuery\Filters\CriterionFilter;
 use ArrayQuery\Filters\JoinFilter;
 use ArrayQuery\Filters\SortingFilter;
 use ArrayQuery\Filters\LimitFilter;
-use ArrayQuery\Helpers\ArrayConverter;
+use ArrayQuery\Helpers\ArrayHelper;
 use ArrayQuery\Helpers\ConsistencyChecker;
 
 class QueryBuilder
@@ -239,7 +239,7 @@ class QueryBuilder
     {
         $results = $this->applySortingFilter($this->applyLimitFilter($this->applyCriteriaFilter($this->applyJoinFilter())));
 
-        return array_map([ArrayConverter::class, 'convertToPlainArray'], $results);
+        return array_map([ArrayHelper::class, 'convertToPlainArray'], $results);
     }
 
     /**
@@ -334,10 +334,12 @@ class QueryBuilder
                     $oldkey = explode(Constants::ARRAY_SEPARATOR, $key[0]);
                     $newkey = $key[1];
 
-                    $result = ArrayConverter::convertToPlainArray($result);
-                    $result[$newkey] = $result[$oldkey[0]];
-                    unset($result[$oldkey[0]]);
+                    $result = ArrayHelper::convertToPlainArray($result);
+                    $oldResult = $result[$oldkey[0]];
+
+                    $result[$newkey] = (count($oldkey) > 1) ? ArrayHelper::getValueFromNestedArray($oldkey, $oldResult) : $oldResult;
                 }
+
                 return $result;
             }, $results);
         }

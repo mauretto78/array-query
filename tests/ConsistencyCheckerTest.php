@@ -63,6 +63,51 @@ class ConsistencyCheckerTest extends TestCase
     /**
      * @test
      */
+    public function it_returns_false_if_an_not_consistent_array_with_nested_keys_is_provided()
+    {
+        $array = [
+            [
+                'id' => 1,
+                'name' => 'Mauro Cassani',
+                'skills' => [
+                    'web' => [
+                        'php' => 5,
+                        'web_design' => 5,
+                        'css' => 4,
+                    ]
+                ],
+            ],
+            [
+                'id' => 2,
+                'name' => 'John Doe',
+                'skills' => [
+                    'web' => [
+                        'php' => 3,
+                        'web_design' => 1,
+                        'css' => 5,
+                    ]
+                ],
+            ],
+            [
+                'id' => 3,
+                'name' => 'Maria Callas',
+                'skills' => [
+                    'web' => [
+                        'php' => 1,
+                        'web_design' => 3,
+                        'css' => 3,
+                        'extra' => 55,
+                    ]
+                ],
+            ],
+        ];
+
+        $this->assertFalse(ConsistencyChecker::isValid($array));
+    }
+
+    /**
+     * @test
+     */
     public function it_returns_false_if_an_not_consistent_element_is_provided()
     {
         $array = [

@@ -12,7 +12,7 @@ namespace ArrayQuery\Filters;
 
 use ArrayQuery\Constants;
 use ArrayQuery\Exceptions\NotValidKeyElementInArrayException;
-use ArrayQuery\Helpers\ArrayConverter;
+use ArrayQuery\Helpers\ArrayHelper;
 
 abstract class AbstractFilter
 {
@@ -25,27 +25,8 @@ abstract class AbstractFilter
     {
         return self::getValueFromKeysArray(
             explode(Constants::ARRAY_SEPARATOR, $key),
-            (is_object($arrayElement)) ? self::convertObjectToArray($arrayElement) : $arrayElement
+            (is_object($arrayElement)) ? ArrayHelper::convertObjectToArray($arrayElement) : $arrayElement
         );
-    }
-
-    /**
-     * @param $arrayElement
-     * @return array
-     */
-    private static function convertObjectToArray($arrayElement)
-    {
-        $convertedArray = [];
-
-        foreach (ArrayConverter::convertToPlainArray($arrayElement) as $key => $element) {
-            $key = explode("\\", $key);
-            $key = end($key);
-            $key = explode("\000", $key);
-
-            $convertedArray[end($key)] = $element;
-        }
-
-        return $convertedArray;
     }
 
     /**
@@ -59,7 +40,7 @@ abstract class AbstractFilter
         if (count($keysArray)>1) {
             $key = array_shift($keysArray);
 
-            return self::getValueFromKeysArray($keysArray, ArrayConverter::convertToPlainArray($arrayElement[$key]));
+            return self::getValueFromKeysArray($keysArray, ArrayHelper::convertToPlainArray($arrayElement[$key]));
         }
 
         if (!isset($arrayElement[$keysArray[0]])) {

@@ -650,18 +650,79 @@ class QueryBuilderTest extends TestCase
     /**
      * @test
      */
+    public function it_should_get_results_from_a_query_with_deep_nested_aliases()
+    {
+        $array = [
+            [
+                'id' => 1,
+                'name' => 'Mauro Cassani',
+                'skills' => [
+                    'web' => [
+                        'php' => 5,
+                        'web_design' => 5,
+                        'css' => 4,
+                    ]
+                ],
+            ],
+            [
+                'id' => 2,
+                'name' => 'John Doe',
+                'skills' => [
+                    'web' => [
+                        'php' => 3,
+                        'web_design' => 1,
+                        'css' => 5,
+                    ]
+                ],
+            ],
+            [
+                'id' => 3,
+                'name' => 'Maria Callas',
+                'skills' => [
+                    'web' => [
+                        'php' => 1,
+                        'web_design' => 3,
+                        'css' => 3,
+                    ]
+                ],
+            ],
+        ];
+
+        $qb = QueryBuilder::create($array)
+            ->addCriterion('skills.web.php as php', 1, '>=')
+            ->addCriterion('skills.web.web_design as web', 1, '>=')
+        ;
+
+        $results = $qb->getResults();
+
+        $this->assertEquals($results[0]['php'], 5);
+        $this->assertEquals($results[0]['web'], 5);
+        $this->assertEquals($results[1]['php'], 3);
+        $this->assertEquals($results[1]['web'], 1);
+        $this->assertEquals($results[2]['php'], 1);
+        $this->assertEquals($results[2]['web'], 3);
+    }
+
+    /**
+     * @test
+     */
     public function it_should_get_results_from_a_query_with_aliases()
     {
         foreach ($this->usersArrays as $array) {
             $qb = QueryBuilder::create($array)
                 ->addCriterion('name as n', 'Ervin Howell')
                 ->addCriterion('username as user', 'Antonette')
-                ->addCriterion('address.street as add', 'Victor Plains');
+                ->addCriterion('address.street as str', 'Victor Plains')
+                ->addCriterion('address.suite as sui', 'Suite 879')
+            ;
+
+            $result = $qb->getResults()[1];
 
             $this->assertCount(1, $qb->getResults());
-            $this->assertArrayHasKey('n', $qb->getResults()[1]);
-            $this->assertArrayHasKey('user', $qb->getResults()[1]);
-            $this->assertArrayHasKey('add', $qb->getResults()[1]);
+            $this->assertEquals($result['n'], 'Ervin Howell');
+            $this->assertEquals($result['user'], 'Antonette');
+            $this->assertEquals($result['str'], 'Victor Plains');
+            $this->assertEquals($result['sui'], 'Suite 879');
         }
     }
 

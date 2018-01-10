@@ -279,14 +279,14 @@ $qb = QueryBuilder::create($array);
 $qb
     ->addCriterion('name as n', 'Ervin Howell')
     ->addCriterion('username as user', 'Antonette')
-    ->addCriterion('address.street as add', 'Victor Plains');
+    ->addCriterion('address.street as street', 'Victor Plains');
 
 foreach ($qb->getResults() as $element){
     // ...
     // now you have
     // $element['n']
     // $element['user']
-    // $element['add']['street']
+    // $element['street']
 }
 ```
 

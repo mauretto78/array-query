@@ -21,18 +21,21 @@ class ConsistencyChecker
     {
         foreach ($array as $key => $item) {
             if (is_object($item)) {
-                $array[$key] = ArrayConverter::convertToPlainArray($item);
+                $array[$key] = ArrayHelper::convertToPlainArray($item);
             }
         }
 
         if (is_object($element)) {
-            $element = ArrayConverter::convertToPlainArray($element);
+            $element = ArrayHelper::convertToPlainArray($element);
         }
 
-        $FirstItemKeyMap = array_keys(current($array));
-        $ItemKeyMap = array_keys($element);
+        $firstItem = current($array);
 
-        if (count(array_diff($FirstItemKeyMap, $ItemKeyMap)) > 0 || count(array_diff($ItemKeyMap, $FirstItemKeyMap)) > 0) {
+        if (false === ArrayHelper::checkIfTwoArraysAreConsistent(array_keys($firstItem), array_keys($element))) {
+            return false;
+        }
+
+        if(false === ArrayHelper::compareElementToItemKeyMap($firstItem, $element)) {
             return false;
         }
 

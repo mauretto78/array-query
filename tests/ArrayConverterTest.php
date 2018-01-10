@@ -10,7 +10,7 @@
 
 namespace ArrayQuery\Tests;
 
-use ArrayQuery\Helpers\ArrayConverter;
+use ArrayQuery\Helpers\ArrayHelper;
 use PHPUnit\Framework\TestCase;
 
 class ArrayConverterTest extends TestCase
@@ -45,7 +45,7 @@ class ArrayConverterTest extends TestCase
             ],
         ];
 
-        $objectArray = ArrayConverter::convertToObjectArray($array);
+        $objectArray = ArrayHelper::convertToObjectArray($array);
         foreach ($objectArray as $item) {
             $this->assertInstanceOf(\stdClass::class, $item);
         }
@@ -71,7 +71,7 @@ class ArrayConverterTest extends TestCase
             $b
         ];
 
-        $plainArray = ArrayConverter::convertToPlainArray($array);
+        $plainArray = ArrayHelper::convertToPlainArray($array);
         foreach ($plainArray as $item) {
             $this->assertTrue(is_array($item));
         }

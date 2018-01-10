@@ -10,7 +10,7 @@
 
 namespace ArrayQuery\Filters\Criterion;
 
-use ArrayQuery\Helpers\ArrayConverter;
+use ArrayQuery\Helpers\ArrayHelper;
 
 class InArrayInversedFilter implements FilterInterface
 {
@@ -21,6 +21,6 @@ class InArrayInversedFilter implements FilterInterface
      */
     public function match($value, $valueToCompare, $dateFormat = null)
     {
-        return in_array($valueToCompare, ArrayConverter::convertToPlainArray($value));
+        return in_array($valueToCompare, ArrayHelper::convertToPlainArray($value));
     }
 }
