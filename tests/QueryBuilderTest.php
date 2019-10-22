@@ -30,12 +30,12 @@ class QueryBuilderTest extends TestCase
 
     /**
      * @test
-     * @expectedException \ArrayQuery\Exceptions\EmptyArrayException
-     * @expectedExceptionMessage Empty array provided.
      */
-    public function it_throws_EmptyCollectionException_if_an_empty_array_is_provided()
+    public function it_return_a_void_array_if_an_empty_array_is_provided()
     {
-        QueryBuilder::create([]);
+        $qb = QueryBuilder::create([]);
+
+        $this->assertEquals([], $qb->getResults());
     }
 
     /**
@@ -195,7 +195,6 @@ class QueryBuilderTest extends TestCase
     {
         foreach ($this->usersArrays as $array) {
             $qb = QueryBuilder::create($array);
-
             $this->assertCount(10, $qb->getResults());
         }
     }

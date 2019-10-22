@@ -10,18 +10,15 @@
 
 namespace ArrayQuery;
 
-use ArrayQuery\Exceptions\EmptyArrayException;
-use ArrayQuery\Exceptions\InvalidArrayException;
 use ArrayQuery\Exceptions\NotConsistentDataException;
 use ArrayQuery\Exceptions\NotExistingElementException;
 use ArrayQuery\Exceptions\NotValidCriterionOperatorException;
-use ArrayQuery\Exceptions\NotValidKeyElementInArrayException;
 use ArrayQuery\Exceptions\NotValidLimitsOfArrayException;
 use ArrayQuery\Exceptions\NotValidSortingOperatorException;
 use ArrayQuery\Filters\CriterionFilter;
 use ArrayQuery\Filters\JoinFilter;
-use ArrayQuery\Filters\SortingFilter;
 use ArrayQuery\Filters\LimitFilter;
+use ArrayQuery\Filters\SortingFilter;
 use ArrayQuery\Helpers\ArrayHelper;
 use ArrayQuery\Helpers\ConsistencyChecker;
 
@@ -54,7 +51,10 @@ class QueryBuilder
 
     /**
      * QueryBuilder constructor.
+     *
      * @param array $array
+     *
+     * @throws NotConsistentDataException
      */
     public function __construct(array $array)
     {
@@ -63,7 +63,9 @@ class QueryBuilder
 
     /**
      * @param array $array
+     *
      * @return static
+     * @throws NotConsistentDataException
      */
     public static function create(array $array)
     {
@@ -72,7 +74,8 @@ class QueryBuilder
 
     /**
      * @param array $array
-     * @throws EmptyArrayException
+     *
+     * @return array
      * @throws NotConsistentDataException
      */
     private function setArray(array $array)
@@ -237,6 +240,10 @@ class QueryBuilder
      */
     public function getResults()
     {
+        if(empty($this->array)){
+            return [];
+        }
+
         $results = $this->applySortingFilter($this->applyLimitFilter($this->applyCriteriaFilter($this->applyJoinFilter())));
 
         return array_map([ArrayHelper::class, 'convertToPlainArray'], $results);
@@ -317,7 +324,7 @@ class QueryBuilder
      */
     private function applyCriteriaFilter(array $array)
     {
-        if (count($this->criteria) === 0) {
+        if (empty($this->criteria) or count($this->criteria) === 0) {
             return $array;
         }
 
