@@ -78,7 +78,7 @@ class QueryBuilder
     private function setArray(array $array)
     {
         if (empty($array)) {
-            throw new EmptyArrayException('Empty array provided.');
+            return [];
         }
 
         if (false === ConsistencyChecker::isValid($array)) {
